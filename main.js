@@ -41,47 +41,88 @@ function searchWiki(query, limit, cl, err) {
     }
     getJSON(uri, cl, err);
 }
+function makeItem(heading, link, desc) {
+    var item = document.createElement('li');
+    var itemHeading = document.createElement('h2');
+    var itemHeadingAnchor = document.createElement('a');
+    itemHeadingAnchor.appendChild(document.createTextNode(heading));
+    itemHeadingAnchor.href = link;
+    itemHeading.appendChild(itemHeadingAnchor);
 
-document.getElementById("search-button").addEventListener("click", function () {
+    var itemDescription = document.createElement('p');
+    itemDescription.appendChild(document.createTextNode(desc));
+
+    item.appendChild(itemHeading);
+    item.appendChild(itemDescription);
+
+    return item;
+}
+function makeErrorItem(msg) {
+    var item = document.createElement('li');
+    var itemHeading = document.createElement('h2');
+    itemHeading.appendChild(document.createTextNode(msg));
+    item.appendChild(itemHeading);
+    return item;
+}
+function search() {
+    document.getElementById("autocomplete").style.visibility = "hidden";
     var list = document.getElementById("results");
     while (list.firstChild) {
         list.removeChild(list.firstChild);
     }
     searchWiki(document.getElementById("search-input").value, 100, function (response) {
         if (response[1].length === 0) {
-            var item = document.createElement('li');
-            var itemHeading = document.createElement('h2');
-            itemHeading.appendChild(document.createTextNode("Nothing found."));
-            item.appendChild(itemHeading);
-            list.appendChild(item);
+            list.appendChild(makeErrorItem("Nothing found."));
         }
         for (var i = 0; i < response[1].length; i++) {
-            var item = document.createElement('li');
+            list.appendChild(makeItem(response[1][i],response[3][i],response[2][i]));
 
-            var itemHeading = document.createElement('h2');
-            var itemHeadingAnchor = document.createElement('a');
-            itemHeadingAnchor.appendChild(document.createTextNode(response[1][i]));
-            itemHeadingAnchor.href = response[3][i];
-            itemHeading.appendChild(itemHeadingAnchor);
-
-            var itemDescription = document.createElement('p');
-            itemDescription.appendChild(document.createTextNode(response[2][i]))
-
-            item.appendChild(itemHeading);
-            item.appendChild(itemDescription)
-            list.appendChild(item);
         }
     }, function () {
-        var item = document.createElement('li');
-        var itemHeading = document.createElement('h2');
-        itemHeading.appendChild(document.createTextNode("Error"));
-        item.appendChild(itemHeading);
-        list.appendChild(item);
+        list.appendChild(makeErrorItem("Error."));
     });
-});
-document.getElementById("search-input").addEventListener("keydown", function (e) {
-    console.log(e);
-    if(e.keyCode == 13) { // Enter
+}
+function autocomplete() {
+    var list = document.getElementById("autocomplete");
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+    searchWiki(document.getElementById("search-input").value, 5, function (response) {
+        document.getElementById("autocomplete").style.visibility = response[1].length === 0 ? "hidden" : "visible";
+        for (var i = 0; i < response[1].length; i++) {
+            var item = document.createElement('li');
+            item.appendChild(document.createTextNode(response[1][i]));
+            var a = function (a) {
+                item.addEventListener("click", function () {
+                    document.getElementById("search-input").value = a;
+                    search();
+                });
+            }(response[1][i]);
+            list.appendChild(item);
+        }
+        x = -1;
+    }, function () {});
+}
+document.getElementById("search-button").addEventListener("click", search);
+document.getElementById("search-input").addEventListener("keyup", function (e) {
 
+    if (e.keyCode == 13) { // Enter
+        search();
+    }
+    else if(e.key == "ArrowDown" || e.key == "ArrowUp") {
+        var list = document.getElementById("autocomplete").childNodes;
+        if (e.key == "ArrowDown" && x + 1 < list.length ) x++;
+        if (e.key == "ArrowUp" && x > -1 ) x--;
+        for (var i = 0; i < list.length; i++)
+            list[i].style.backgroundColor = "transparent";
+        if (x < 0) return;
+        document.getElementById("search-input").value = list[x].innerHTML;
+        list[x].style.backgroundColor = "red";
+    }
+    else if(e.key == "Escape") {
+        document.getElementById("autocomplete").style.visibility = "hidden";
+    }
+    else {
+        autocomplete();
     }
 });

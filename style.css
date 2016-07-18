@@ -1,6 +1,19 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(58deg, #12857c, #a59f4e, #6f4ea5);
+    background-size: 600% 600%;
+    animation: AnimationName 33s ease infinite;
+}
+@keyframes AnimationName {
+    0%{background-position:91% 0%}
+    50%{background-position:10% 100%}
+    100%{background-position:91% 0%}
+}
 .search {
 
 }
@@ -15,6 +28,8 @@
     border: 2px solid coral;
     list-style: none;
     padding: 0;
+    visibility: hidden;
+    background: wheat;
 }
 .autocomplete li:hover {
     background: wheat;
