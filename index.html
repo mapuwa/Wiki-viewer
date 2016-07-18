@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
     <title>Wikipedia Viewer</title>
 </head>
 <body>
 <h1>Wikipedia Viewer</h1>
-<input type="text">
-<button>Search</button>
-<button>I'm Feeling Lucky</button>
 
+<a href="https://en.wikipedia.org/wiki/Special:Random">I'm Feeling Lucky</a>
+<div class="search">
+    <input type="text" id="search-input">
+    <button id="search-button">Search</button>
+    <ul class="autocomplete" id="autocomplete">
+    </ul>
+</div>
+<ul id="results">
+
+</ul>
+<script src="main.js"></script>
 </body>
 </html>
