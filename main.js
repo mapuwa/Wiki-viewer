@@ -44,11 +44,12 @@ function searchWiki(query, limit, cl, err) {
 
 document.getElementById("search-button").addEventListener("click", function () {
     var list = document.getElementById("results");
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
     searchWiki(document.getElementById("search-input").value, 100, function (response) {
-        console.log(response);
         if (response[1].length === 0) {
             var item = document.createElement('li');
-
             var itemHeading = document.createElement('h2');
             itemHeading.appendChild(document.createTextNode("Nothing found."));
             item.appendChild(itemHeading);
@@ -71,7 +72,16 @@ document.getElementById("search-button").addEventListener("click", function () {
             list.appendChild(item);
         }
     }, function () {
-
+        var item = document.createElement('li');
+        var itemHeading = document.createElement('h2');
+        itemHeading.appendChild(document.createTextNode("Error"));
+        item.appendChild(itemHeading);
+        list.appendChild(item);
     });
+});
+document.getElementById("search-input").addEventListener("keydown", function (e) {
+    console.log(e);
+    if(e.keyCode == 13) { // Enter
 
+    }
 });
