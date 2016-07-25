@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css">
     <title>WikiSearch</title>
 </head>
 <body>
-<h1 class="main-heading">Wiki Search</h1>
+<h1 class="main-heading"><img src="wiki.png" alt="Wikipedia"> Search</h1>
 
-<a href="https://en.wikipedia.org/wiki/Special:Random">I'm Feeling Lucky</a>
+<a class="button" href="https://en.wikipedia.org/wiki/Special:Random" title="Random page">I'm Feeling Lucky</a> <br>
 <div class="search">
     <input type="text" id="search-input">
-    <button id="search-button">Search</button>
-    <ul class="autocomplete" id="autocomplete">
-    </ul>
+    <button class="search-big-button" id="search-button">Search</button>
+    <button class="search-small-button" id="search-button2">S</button>
+    <ul class="autocomplete" id="autocomplete"></ul>
 </div>
-<ul id="results">
-
-</ul>
+<ul id="results"></ul>
 <script src="main.js"></script>
 </body>
 </html>

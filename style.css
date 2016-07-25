@@ -5,41 +5,89 @@
 body {
     min-height: 100vh;
     min-width: 100vw;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
     background: linear-gradient(58deg, #12857c, #a59f4e, #6f4ea5);
     background-size: 600% 600%;
-    animation: AnimationName 33s ease infinite;
-
-    font-family: 'Open Sans', sans-serif;
+    animation: ColorChange 33s ease infinite;
 }
-@keyframes AnimationName {
+@keyframes ColorChange {
     0%{background-position:91% 0%}
     50%{background-position:10% 100%}
     100%{background-position:91% 0%}
 }
 
 .main-heading  {
-    text-transform: uppercase;
+    color: aliceblue;
+    font-size: 4em;
+    font-weight: 400;
+    font-family: 'Cinzel', serif;
+}
+.main-heading img {
+    width: 2em;
+    position: relative;
+    top: 0.7em;
 }
 
-
+button , .button {
+    background: rgba(210,210,210,0.2);
+    outline: none;
+    padding: 0.45em 1em;
+    border: 2.5px solid #ccd3d9;
+    display: inline-block;
+    text-decoration: none;
+    color: #dde4ea;
+    cursor: pointer;
+    font-size: 1em;
+    height: 2.5em;
+    margin: 0;
+}
+button:hover , .button:hover {
+    border: 2.5px solid #e2eaf0;
+    color: #eaf2f8;
+}
 
 .search {
-
+    margin-top: 3em;
+    display: inline-block;
+    position: relative;
 }
 .search input {
-    position: relative;
-    width: 500px;
+    margin-left: 2vw;
+    width: 80vw;
+    max-width: 500px;
+    height: 2.5em;
+    font-size: 1em;
+}
+.search button {
+    max-width: 15vw;
+}
+.search-small-button {
+    display: none;
+}
+@media only screen and (max-device-width : 530px) {
+    .search-small-button {
+        display: inline-block;
+    }
+    .search-big-button {
+        display: none;
+    }
 }
 .autocomplete {
     position: absolute;
-    width: 500px;
+    left: 2vw;
+    width: 80vw;
+    max-width: 500px;
     margin: 0;
-    border: 2px solid coral;
+    border: 3px solid #64676a;
     list-style: none;
     padding: 0;
     visibility: hidden;
-    background: wheat;
+    background: #eaeaf1;
+}
+.autocomplete li {
+    cursor: pointer;
 }
 .autocomplete li:hover {
-    background: wheat;
+    background: white;
 }

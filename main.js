@@ -64,6 +64,7 @@ function makeErrorItem(msg) {
     item.appendChild(itemHeading);
     return item;
 }
+
 function search() {
     document.getElementById("autocomplete").style.visibility = "hidden";
     var list = document.getElementById("results");
@@ -104,6 +105,7 @@ function autocomplete() {
     }, function () {});
 }
 document.getElementById("search-button").addEventListener("click", search);
+document.getElementById("search-button2").addEventListener("click", search);
 document.getElementById("search-input").addEventListener("keyup", function (e) {
 
     if (e.keyCode == 13) { // Enter
@@ -117,7 +119,7 @@ document.getElementById("search-input").addEventListener("keyup", function (e) {
             list[i].style.backgroundColor = "transparent";
         if (x < 0) return;
         document.getElementById("search-input").value = list[x].innerHTML;
-        list[x].style.backgroundColor = "red";
+        list[x].style.backgroundColor = "white";
     }
     else if(e.key == "Escape") {
         document.getElementById("autocomplete").style.visibility = "hidden";
