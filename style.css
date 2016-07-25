@@ -3,8 +3,9 @@
 }
 
 body {
+    margin: 0;
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100vw;
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     background: linear-gradient(58deg, #12857c, #a59f4e, #6f4ea5);
@@ -15,18 +16,6 @@ body {
     0%{background-position:91% 0%}
     50%{background-position:10% 100%}
     100%{background-position:91% 0%}
-}
-
-.main-heading  {
-    color: aliceblue;
-    font-size: 4em;
-    font-weight: 400;
-    font-family: 'Cinzel', serif;
-}
-.main-heading img {
-    width: 2em;
-    position: relative;
-    top: 0.7em;
 }
 
 button , .button {
@@ -41,12 +30,27 @@ button , .button {
     font-size: 1em;
     height: 2.5em;
     margin: 0;
+    transition: all 1s ease;
 }
 button:hover , .button:hover {
     border: 2.5px solid #e2eaf0;
     color: #eaf2f8;
 }
-
+/* Main heading */
+.main-heading  {
+    color: aliceblue;
+    font-size: 4em;
+    font-weight: 400;
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    padding: 1em 0;
+}
+.main-heading img {
+    width: 2em;
+    position: relative;
+    top: 0.7em;
+}
+/* Searching */
 .search {
     margin-top: 3em;
     display: inline-block;
@@ -58,13 +62,14 @@ button:hover , .button:hover {
     max-width: 500px;
     height: 2.5em;
     font-size: 1em;
-    padding-left: 3px;
+    padding-left: 7px;
 }
 .search button {
     max-width: 15vw;
 }
 .search-small-button {
     display: none;
+    padding: 1vw;
 }
 @media only screen and (max-device-width : 530px) {
     .search-small-button {
@@ -74,6 +79,7 @@ button:hover , .button:hover {
         display: none;
     }
 }
+/* Autocomplete */
 .autocomplete {
     position: absolute;
     left: 2vw;
@@ -91,4 +97,26 @@ button:hover , .button:hover {
 }
 .autocomplete li:hover {
     background: white;
+}
+
+/* Results */
+.result {
+    margin: -1em 0 0 0;
+    list-style: none;
+    padding: 5vw;
+}
+.result li {
+    margin: 2em auto;
+    max-width: 800px;
+}
+.result a {
+    color: #dde4ea;
+    text-decoration: none;
+}
+.result a:hover {
+    color: white;
+}
+.result p {
+    text-align: justify;
+    color: #c4cad0
 }

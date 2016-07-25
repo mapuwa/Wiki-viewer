@@ -1,4 +1,21 @@
 /**
+ * Wikipedia API queries
+ * ######################
+ *
+ * Search
+ * ======
+ * https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=php
+ * Array- first item = query
+ *        second item = results names
+ *        third item = results descriptions
+ *        fourth item = results links
+ *
+ * Random page
+ * ===========
+ * https://en.wikipedia.org/wiki/Special:Random
+ */
+
+/**
  * Send GET request on the url a call function with parsed JSON or with error
  * @param url url with JSON
  * @param cl function, which is called with parsed JSON
@@ -17,24 +34,6 @@ function getJSON(url, cl, err){
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-
-/**
- * Wikipedia API queries
- * ######################
- *
- * Search
- * ======
- * https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=php
- * Array- first item = query
- *        second item = results names
- *        third item = results descriptions
- *        fourth item = results links
- *
- * Random page
- * ===========
- * https://en.wikipedia.org/wiki/Special:Random
- */
-
 /**
  *  Send GET request on Wikipedia API with searched text
  * @param query Searched text
