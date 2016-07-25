@@ -8,12 +8,21 @@ body {
     background: linear-gradient(58deg, #12857c, #a59f4e, #6f4ea5);
     background-size: 600% 600%;
     animation: AnimationName 33s ease infinite;
+
+    font-family: 'Open Sans', sans-serif;
 }
 @keyframes AnimationName {
     0%{background-position:91% 0%}
     50%{background-position:10% 100%}
     100%{background-position:91% 0%}
 }
+
+.main-heading  {
+    text-transform: uppercase;
+}
+
+
+
 .search {
 
 }
