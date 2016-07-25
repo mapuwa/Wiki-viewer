@@ -34,6 +34,14 @@ function getJSON(url, cl, err){
  * ===========
  * https://en.wikipedia.org/wiki/Special:Random
  */
+
+/**
+ *  Send GET request on Wikipedia API with searched text
+ * @param query Searched text
+ * @param limit Maximum count of results
+ * @param cl successful callback function
+ * @param err error callback function
+ */
 function searchWiki(query, limit, cl, err) {
     var uri = "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&limit="+ limit + "&search=" + query;
     if ("local" == "local") {
@@ -41,6 +49,7 @@ function searchWiki(query, limit, cl, err) {
     }
     getJSON(uri, cl, err);
 }
+/* Helping functions (factories) */
 function makeItem(heading, link, desc) {
     var item = document.createElement('li');
     var itemHeading = document.createElement('h2');
@@ -64,7 +73,21 @@ function makeErrorItem(msg) {
     item.appendChild(itemHeading);
     return item;
 }
-
+function makeAutcompleteItem(text){
+    var item = document.createElement('li');
+    item.appendChild(document.createTextNode(text));
+    var a = function (a) {
+        item.addEventListener("click", function () {
+            document.getElementById("search-input").value = a;
+            e.stopPropagation();
+            search();
+        });
+    }(text);
+    return item;
+}
+/**
+ * Function, which handles searching and showing results
+ */
 function search() {
     document.getElementById("autocomplete").style.visibility = "hidden";
     var list = document.getElementById("results");
@@ -77,12 +100,14 @@ function search() {
         }
         for (var i = 0; i < response[1].length; i++) {
             list.appendChild(makeItem(response[1][i],response[3][i],response[2][i]));
-
         }
     }, function () {
         list.appendChild(makeErrorItem("Error."));
     });
 }
+/**
+ * Function, which handles autocomplete searching and showing results
+ */
 function autocomplete() {
     var list = document.getElementById("autocomplete");
     while (list.firstChild) {
@@ -91,23 +116,15 @@ function autocomplete() {
     searchWiki(document.getElementById("search-input").value, 5, function (response) {
         document.getElementById("autocomplete").style.visibility = response[1].length === 0 ? "hidden" : "visible";
         for (var i = 0; i < response[1].length; i++) {
-            var item = document.createElement('li');
-            item.appendChild(document.createTextNode(response[1][i]));
-            var a = function (a) {
-                item.addEventListener("click", function () {
-                    document.getElementById("search-input").value = a;
-                    search();
-                });
-            }(response[1][i]);
-            list.appendChild(item);
+            list.appendChild(makeAutcompleteItem(response[1][i]));
         }
         x = -1;
     }, function () {});
 }
-document.getElementById("search-button").addEventListener("click", search);
-document.getElementById("search-button2").addEventListener("click", search);
-document.getElementById("search-input").addEventListener("keyup", function (e) {
 
+document.getElementById("search-button").addEventListener("click", search); // Big button
+document.getElementById("search-button2").addEventListener("click", search); // Small button
+document.getElementById("search-input").addEventListener("keyup", function (e) { // Autocomplete
     if (e.keyCode == 13) { // Enter
         search();
     }
@@ -127,4 +144,7 @@ document.getElementById("search-input").addEventListener("keyup", function (e) {
     else {
         autocomplete();
     }
+});
+window.addEventListener("click", function(){ // Hide autocomplete results, when user click out of autocomplete box
+    document.getElementById("autocomplete").style.visibility = "hidden";
 });
